@@ -6,29 +6,15 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
-import GithubSVG from "@/components/logos/GithubSVG";
+import { signUpSchema } from "@/zod/auth-schema";
 
-const signUpSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Name must be at least 2 characters")
-    .max(50, "Name must be at most 50 characters"),
-  email: z.email("Please enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  confirmPassword: z.string(),
-});
-
-export function SignupForm({
-  className,
-  ...props
-}: React.ComponentProps<"form">) {
+export function SignupForm() {
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -43,9 +29,11 @@ export function SignupForm({
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <div className="flex flex-col items-center gap-1 text-center">
-        <h1 className="text-2xl font-bold">Create your account</h1>
+        <h1 className="text-2xl font-bold">
+          Your notes. Clearer. Smarter. Better.
+        </h1>
         <p className="text-muted-foreground text-sm text-balance">
-          Fill in the form below to create your account
+          Create your Better Notes account.
         </p>
       </div>
       <FieldGroup className="space-y-px">
@@ -114,16 +102,9 @@ export function SignupForm({
           )}
         />
         <Button type="submit">Create Account</Button>
-        <FieldSeparator>Or continue with</FieldSeparator>
-        <Field>
-          <Button variant="outline" type="button">
-            <GithubSVG />
-            Sign up with GitHub
-          </Button>
-          <FieldDescription className="px-6 text-center">
-            Already have an account? <Link href="/auth/login">Sign in</Link>
-          </FieldDescription>
-        </Field>
+        <FieldDescription className="px-6 text-center">
+          Already have an account? <Link href="/auth/login">Sign in</Link>
+        </FieldDescription>
       </FieldGroup>
     </form>
   );
