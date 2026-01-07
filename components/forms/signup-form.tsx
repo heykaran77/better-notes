@@ -13,18 +13,38 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import { signUpSchema } from "@/zod/auth-schema";
+import { useTransition } from "react";
+import { signUpUser } from "@/server/user";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export function SignupForm() {
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       name: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof signUpSchema>) {}
+  function onSubmit(data: z.infer<typeof signUpSchema>) {
+    startTransition(async () => {
+      try {
+        const response = await signUpUser(data.name, data.email, data.password);
+        if (response.success) {
+          toast.success(response.message);
+          form.reset();
+        } else {
+          toast.error(response.message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -86,7 +106,7 @@ export function SignupForm() {
           )}
         />
         <Controller
-          name="password"
+          name="confirmPassword"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field>
@@ -101,9 +121,18 @@ export function SignupForm() {
             </Field>
           )}
         />
-        <Button type="submit">Create Account</Button>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Signing up
+            </>
+          ) : (
+            <span>Sign up</span>
+          )}
+        </Button>
         <FieldDescription className="px-6 text-center">
-          Already have an account? <Link href="/auth/login">Sign in</Link>
+          Already have an account? <Link href="/auth/login">LogIn</Link>
         </FieldDescription>
       </FieldGroup>
     </form>

@@ -1,6 +1,8 @@
+"use server";
+
 import { auth } from "@/lib/auth";
 
-export const signInUser = async (email: string, password: string) => {
+export const loginUser = async (email: string, password: string) => {
   try {
     await auth.api.signInEmail({
       body: {
