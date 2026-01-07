@@ -29,7 +29,7 @@ export default function AuthLayout({
         <Image
           src="/placeholder-2.jpg"
           alt="Image"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover"
           sizes="2"
           fill
         />

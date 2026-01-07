@@ -78,7 +78,12 @@ export function LoginForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field>
-              <FieldLabel>Password</FieldLabel>
+              <div className="flex items-center justify-between">
+                <FieldLabel>Password</FieldLabel>
+                <FieldDescription>
+                  <Link href="/forgot-password">forgot password?</Link>
+                </FieldDescription>
+              </div>
               <Input
                 type="password"
                 {...field}
