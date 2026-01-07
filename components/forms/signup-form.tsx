@@ -17,6 +17,7 @@ import { useTransition } from "react";
 import { signUpUser } from "@/server/user";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function SignupForm() {
   const [isPending, startTransition] = useTransition();
@@ -29,13 +30,15 @@ export function SignupForm() {
       confirmPassword: "",
     },
   });
+  const router = useRouter();
 
   function onSubmit(data: z.infer<typeof signUpSchema>) {
     startTransition(async () => {
       try {
         const response = await signUpUser(data.name, data.email, data.password);
         if (response.success) {
-          toast.success(response.message);
+          toast.success("Please check your email for verification");
+          router.push("/auth/login");
           form.reset();
         } else {
           toast.error(response.message);

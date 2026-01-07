@@ -35,8 +35,8 @@ export function LoginForm() {
       try {
         const response = await loginUser(data.email, data.password);
         if (response.success) {
-          toast.success(response.message);
           router.push("/dashboard");
+          toast.success(response.message);
           form.reset();
         } else {
           toast.error(response.message);
