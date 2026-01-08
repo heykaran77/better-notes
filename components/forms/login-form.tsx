@@ -6,6 +6,7 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
@@ -18,9 +19,11 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { loginUser } from "@/server/user";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export function LoginForm() {
   const [isPending, startTransition] = useTransition();
+  const [isGooglePending, startGoogleTransition] = useTransition();
   const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -46,6 +49,15 @@ export function LoginForm() {
       }
     });
   }
+
+  const googleLogin = () => {
+    startGoogleTransition(async () => {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/dashboard",
+      });
+    });
+  };
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -102,6 +114,22 @@ export function LoginForm() {
             </>
           ) : (
             <span>Login</span>
+          )}
+        </Button>
+        <FieldSeparator>Or login with</FieldSeparator>
+        <Button
+          variant="outline"
+          onClick={googleLogin}
+          disabled={isGooglePending}
+          type="button"
+          className="cursor-pointer">
+          {isGooglePending ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Signing in
+            </>
+          ) : (
+            <span>Google</span>
           )}
         </Button>
         <FieldDescription className="px-6 text-center">

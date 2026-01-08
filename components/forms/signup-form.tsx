@@ -59,7 +59,7 @@ export function SignupForm() {
           Create your Better Notes account.
         </p>
       </div>
-      <FieldGroup className="space-y-px">
+      <FieldGroup className="-space-y-4">
         <Controller
           name="email"
           control={form.control}
