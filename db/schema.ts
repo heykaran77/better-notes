@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  index,
+  jsonb,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -92,4 +99,60 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-export const schema = { user, session, account, verification };
+export const notesbooks = pgTable("notesbooks", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
+export type Notesbooks = typeof notesbooks.$inferSelect;
+export type NotebooksInsert = typeof notesbooks.$inferInsert;
+
+export const notes = pgTable("notes", {
+  id: text("id").primaryKey(),
+  title: text("title").notNull(),
+  content: jsonb("content").notNull(),
+  notesbookId: text("notesbook_id")
+    .notNull()
+    .references(() => notesbooks.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
+export type Notes = typeof notes.$inferSelect;
+
+export const notesbooksRelations = relations(notesbooks, ({ many, one }) => ({
+  notes: many(notes),
+  user: one(user, {
+    fields: [notesbooks.userId],
+    references: [user.id],
+  }),
+}));
+
+export const noteRelations = relations(notes, ({ one }) => ({
+  notesbook: one(notesbooks, {
+    fields: [notes.notesbookId],
+    references: [notesbooks.id],
+  }),
+}));
+
+export const schema = {
+  user,
+  session,
+  account,
+  verification,
+  notesbooks,
+  notes,
+};

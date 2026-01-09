@@ -6,7 +6,14 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -25,7 +32,17 @@ export default function PageWrapper({
       <header className="flex items-center p-4 border-b">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-4">
-            <SidebarTrigger className="cursor-pointer" />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <SidebarTrigger className="cursor-pointer" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <KbdGroup>
+                  <Kbd>Ctrl</Kbd>
+                  <Kbd>B</Kbd>
+                </KbdGroup>
+              </TooltipContent>
+            </Tooltip>
             <Breadcrumb>
               <BreadcrumbList>
                 {breadCrumbs.map((breadcrumb, index) => (
