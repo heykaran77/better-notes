@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -100,7 +100,9 @@ export const accountRelations = relations(account, ({ one }) => ({
 }));
 
 export const notesbooks = pgTable("notesbooks", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
   userId: text("user_id")
     .notNull()
@@ -117,7 +119,9 @@ export type Notesbooks = typeof notesbooks.$inferSelect;
 export type NotebooksInsert = typeof notesbooks.$inferInsert;
 
 export const notes = pgTable("notes", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   title: text("title").notNull(),
   content: jsonb("content").notNull(),
   notesbookId: text("notesbook_id")
