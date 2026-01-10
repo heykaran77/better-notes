@@ -16,6 +16,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { insertNotebookSchema } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
 import { createNotebook } from "@/server/notebook";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,22 +27,20 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const NotebookInsertSchema = z.object({
-  name: z.string().trim().min(1, "Name is required"),
-});
+const notebookFormSchema = insertNotebookSchema.pick({ name: true });
 
 export default function CreateNotebookButton() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const form = useForm<z.infer<typeof NotebookInsertSchema>>({
-    resolver: zodResolver(NotebookInsertSchema),
+  const form = useForm<z.infer<typeof notebookFormSchema>>({
+    resolver: zodResolver(notebookFormSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  function handleSubmit(data: z.infer<typeof NotebookInsertSchema>) {
+  function handleSubmit(data: z.infer<typeof notebookFormSchema>) {
     try {
       startTransition(async () => {
         const userId = (await authClient.getSession()).data?.user.id;

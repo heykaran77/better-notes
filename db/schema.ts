@@ -7,6 +7,7 @@ import {
   index,
   jsonb,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -118,6 +119,9 @@ export const notesbooks = pgTable("notesbooks", {
 export type Notesbooks = typeof notesbooks.$inferSelect;
 export type NotebooksInsert = typeof notesbooks.$inferInsert;
 
+export const insertNotebookSchema = createInsertSchema(notesbooks);
+export const selectNotebookSchema = createSelectSchema(notesbooks);
+
 export const notes = pgTable("notes", {
   id: text("id")
     .primaryKey()
@@ -136,6 +140,10 @@ export const notes = pgTable("notes", {
 });
 
 export type Notes = typeof notes.$inferSelect;
+export type NotesInsert = typeof notes.$inferInsert;
+
+export const insertNoteSchema = createInsertSchema(notes);
+export const selectNoteSchema = createSelectSchema(notes);
 
 export const notesbooksRelations = relations(notesbooks, ({ many, one }) => ({
   notes: many(notes),
@@ -159,4 +167,9 @@ export const schema = {
   verification,
   notesbooks,
   notes,
+  userRelations,
+  sessionRelations,
+  accountRelations,
+  notesbooksRelations,
+  noteRelations,
 };

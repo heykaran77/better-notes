@@ -3,12 +3,18 @@
 // Server functions for Notebooks, Notes.
 
 import { db } from "@/db";
-import { NotebooksInsert, notesbooks } from "@/db/schema";
+import { insertNotebookSchema, NotebooksInsert, notesbooks } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 
 export const createNotebook = async (values: NotebooksInsert) => {
+  const result = insertNotebookSchema.safeParse(values);
+
+  if (!result.success) {
+    return { success: false, message: result.error.issues[0].message };
+  }
+
   try {
     await db.insert(notesbooks).values(values);
     return { success: true, message: "Notebook created successfully" };
@@ -32,10 +38,13 @@ export const getNotebooks = async () => {
     if (!userId) {
       return { success: false, message: "User not found" };
     }
-    const notebooksByUser = await db
-      .select()
-      .from(notesbooks)
-      .where(eq(notesbooks.userId, userId));
+    const notebooksByUser = await db.query.notesbooks.findMany({
+      where: eq(notesbooks.userId, userId),
+      with: {
+        notes: true,
+      },
+    });
+
     return { success: true, notebooks: notebooksByUser };
   } catch (error) {
     const e = error as Error;
@@ -48,10 +57,12 @@ export const getNotebooks = async () => {
 
 export const getNotebookById = async (id: string) => {
   try {
-    const notebook = await db
-      .select()
-      .from(notesbooks)
-      .where(eq(notesbooks.id, id));
+    const notebook = await db.query.notesbooks.findFirst({
+      where: eq(notesbooks.id, id),
+      with: {
+        notes: true,
+      },
+    });
     return { success: true, notebook };
   } catch (error) {
     const e = error as Error;

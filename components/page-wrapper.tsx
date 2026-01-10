@@ -5,6 +5,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
@@ -14,6 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Fragment } from "react/jsx-runtime";
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -46,11 +48,16 @@ export default function PageWrapper({
             <Breadcrumb>
               <BreadcrumbList>
                 {breadCrumbs.map((breadcrumb, index) => (
-                  <BreadcrumbItem key={index}>
-                    <BreadcrumbLink href={breadcrumb.href}>
-                      {breadcrumb.label}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
+                  <Fragment key={index}>
+                    <BreadcrumbItem key={index}>
+                      <BreadcrumbLink href={breadcrumb.href}>
+                        {breadcrumb.label}
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    {index !== breadCrumbs.length - 1 && (
+                      <BreadcrumbSeparator />
+                    )}
+                  </Fragment>
                 ))}
               </BreadcrumbList>
             </Breadcrumb>
