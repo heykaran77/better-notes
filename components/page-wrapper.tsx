@@ -15,7 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Fragment } from "react/jsx-runtime";
+import { Fragment } from "react";
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -30,8 +30,8 @@ export default function PageWrapper({
   breadCrumbs,
 }: PageWrapperProps) {
   return (
-    <div className="flex flex-col gap-4 border">
-      <header className="flex items-center p-4 border-b">
+    <div className="flex flex-col gap-4">
+      <header className="flex items-center p-4  border-b">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-4">
             <Tooltip>
