@@ -1,18 +1,20 @@
 "use client";
 import Link from "next/link";
-import { Logo } from "@/components/logo";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { useScroll } from "motion/react";
 import { ModeToggle } from "@/components/common/mode-toggle";
+import Image from "next/image";
 
 const menuItems = [
-  { name: "Features", href: "#link" },
-  { name: "Solution", href: "#link" },
-  { name: "Pricing", href: "#link" },
-  { name: "About", href: "#link" },
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "Features", href: "#features" },
+  {
+    name: "Testimonials",
+    href: "#testimonials",
+  },
 ];
 
 export const HeroHeader = () => {
@@ -34,7 +36,7 @@ export const HeroHeader = () => {
         data-state={menuState && "active"}
         className={cn(
           "fixed z-20 w-full border-b transition-colors duration-150",
-          scrolled && "bg-background/50 backdrop-blur-3xl"
+          "bg-background/50 backdrop-blur-3xl"
         )}>
         <div className="mx-auto max-w-5xl px-6 transition-all duration-300">
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
@@ -43,7 +45,13 @@ export const HeroHeader = () => {
                 href="/"
                 aria-label="home"
                 className="flex items-center space-x-2">
-                <Logo />
+                <Image
+                  src="/logo_512x512.png"
+                  alt="logo"
+                  width={50}
+                  height={50}
+                  className="rounded-lg dark:bg-white"
+                />
               </Link>
 
               <button
@@ -76,6 +84,7 @@ export const HeroHeader = () => {
                     <li key={index}>
                       <Link
                         href={item.href}
+                        onClick={() => setMenuState(false)}
                         className="text-muted-foreground hover:text-accent-foreground block duration-150">
                         <span>{item.name}</span>
                       </Link>
@@ -85,12 +94,12 @@ export const HeroHeader = () => {
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
                 <Button asChild variant="outline" size="sm">
-                  <Link href="#">
+                  <Link href="/auth/login">
                     <span>Login</span>
                   </Link>
                 </Button>
                 <Button asChild size="sm">
-                  <Link href="#">
+                  <Link href="/auth/signup">
                     <span>Sign Up</span>
                   </Link>
                 </Button>

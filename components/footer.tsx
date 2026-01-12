@@ -1,4 +1,4 @@
-import { Logo } from "@/components/logo";
+import Image from "next/image";
 import Link from "next/link";
 
 const links = [
@@ -7,27 +7,27 @@ const links = [
     items: [
       {
         title: "Features",
-        href: "#",
+        href: "#features",
       },
       {
         title: "Solution",
-        href: "#",
+        href: "#link",
       },
       {
         title: "Customers",
-        href: "#",
+        href: "#link",
       },
       {
         title: "Pricing",
-        href: "#",
+        href: "#pricing",
       },
       {
         title: "Help",
-        href: "#",
+        href: "#link",
       },
       {
         title: "About",
-        href: "#",
+        href: "#about",
       },
     ],
   },
@@ -123,7 +123,13 @@ export default function FooterSection() {
         <div className="grid gap-12 md:grid-cols-5">
           <div className="md:col-span-2">
             <Link href="/" aria-label="go home" className="block size-fit">
-              <Logo />
+              <Image
+                src="/logo_512x512.png"
+                alt="logo"
+                width={50}
+                height={50}
+                className="rounded-lg dark:bg-white"
+              />
             </Link>
           </div>
 
