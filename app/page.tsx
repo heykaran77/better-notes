@@ -1,7 +1,7 @@
-import Features from "@/components/features";
-import FooterSection from "@/components/footer";
-import HeroSection from "@/components/hero-section";
-import Testimonials from "@/components/testimonials";
+import Features from "@/components/landing/features";
+import FooterSection from "@/components/landing/footer";
+import HeroSection from "@/components/landing/hero-section";
+import Testimonials from "@/components/landing/testimonials";
 
 export default function Home() {
   return (

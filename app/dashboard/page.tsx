@@ -7,7 +7,6 @@ export default async function Dashboard() {
   const notebooks = await getNotebooks();
   return (
     <PageWrapper breadCrumbs={[{ label: "Dashboard", href: "/dashboard" }]}>
-      {/* <Notebooks /> */}
       <CreateNotebookButton />
       {notebooks.success &&
         notebooks.notebooks?.map((notebook) => (
