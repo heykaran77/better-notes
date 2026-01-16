@@ -1,4 +1,6 @@
 import PageWrapper from "@/components/page-wrapper";
+import Tiptap from "@/components/tiptap";
+import { type JSONContent } from "@tiptap/react";
 import { getNotesById } from "@/server/notes";
 
 interface NotePageProps {
@@ -38,6 +40,7 @@ export default async function NotePage({
         },
       ]}>
       {note.title}
+      <Tiptap content={note?.content as JSONContent[]} noteId={noteId} />
     </PageWrapper>
   );
 }

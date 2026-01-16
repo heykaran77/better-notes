@@ -35,8 +35,9 @@ export const getNotesById = async (id: string) => {
   }
 };
 
-export const updateNote = async (id: string, values: NotesInsert) => {
-  const result = insertNoteSchema.safeParse(values);
+export const updateNote = async (id: string, values: Partial<NotesInsert>) => {
+  // Parse the results with partial schema
+  const result = insertNoteSchema.partial().safeParse(values);
 
   if (!result.success) {
     return { success: false, message: result.error.issues[0].message };
