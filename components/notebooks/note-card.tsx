@@ -8,44 +8,53 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Notesbooks } from "@/db/schema";
-import { deleteNotebook } from "@/server/notebook";
+import { Notes } from "@/db/schema";
+import { deleteNote } from "@/server/notes";
 import { Loader2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
-interface NoteBookCardProps {
-  notebook: Notesbooks;
+interface NoteCardProps {
+  note: Notes;
 }
-
-export default function NoteBookCard({ notebook }: NoteBookCardProps) {
-  const router = useRouter();
+export default function NoteCard({ note }: NoteCardProps) {
   const [deletePending, startDeleteTransition] = useTransition();
+  const router = useRouter();
+
+  
+
   const handleDelete = () => {
-    startDeleteTransition(async () => {
-      try {
-        const response = await deleteNotebook(notebook.id);
+    try {
+      startDeleteTransition(async () => {
+        const response = await deleteNote(note.id);
 
         if (response.success) {
-          toast.success("Note deleted successfully");
+          toast.success(response.message);
           router.refresh();
+        } else {
+          toast.error("Some error occured");
         }
-      } catch (error) {
-        toast.error("Failed to delete notebook");
-      }
-    });
+      });
+    } catch (error) {
+      const e = error as Error;
+      console.log("Error occured: ", e.message);
+    }
   };
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{notebook.name}</CardTitle>
+      <CardHeader className="flex flex-col gap-2">
+        <CardTitle>{note.title}</CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Updated At: {new Date(note.updatedAt).toLocaleDateString()}
+        </p>
       </CardHeader>
-      <CardContent>{notebook.notes.length ?? 0} notes</CardContent>
+      <CardContent></CardContent>
       <CardFooter className="flex flex-wrap items-center gap-2">
-        <Button className="" variant={"default"} asChild>
-          <Link href={`/dashboard/notebook/${notebook.id}`}>View</Link>
+        <Button className="cursor-pointer" variant={"default"} asChild>
+          <Link href={`/dashboard/note/${note.id}`}>View</Link>
         </Button>
         <Button
           variant={"destructive"}

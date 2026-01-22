@@ -27,7 +27,13 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const notebookFormSchema = insertNotebookSchema.pick({ name: true });
+const notebookFormSchema = insertNotebookSchema.pick({ name: true }).extend({
+  name: z
+    .string()
+    .trim()
+    .min(3, "Name is too short")
+    .max(20, "Name is too long"),
+});
 
 export default function CreateNotebookButton() {
   const [isPending, startTransition] = useTransition();
@@ -88,7 +94,7 @@ export default function CreateNotebookButton() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Name</FieldLabel>
-                  <Input {...field} placeholder="Name" />
+                  <Input {...field} placeholder="Name" type="text" />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]}></FieldError>
                   )}

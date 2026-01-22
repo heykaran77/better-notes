@@ -129,7 +129,7 @@ export const notes = pgTable("notes", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   title: text("title").notNull(),
-  content: jsonb("content").notNull(),
+  content: jsonb("content").notNull().default({}),
   notesbookId: text("notesbook_id")
     .notNull()
     .references(() => notesbooks.id, { onDelete: "cascade" }),
