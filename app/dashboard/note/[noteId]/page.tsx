@@ -1,5 +1,5 @@
-import PageWrapper from "@/components/page-wrapper";
-import Tiptap from "@/components/tiptap";
+import PageWrapper from "@/components/dashboard/page-wrapper";
+import Tiptap from "@/components/dashboard/tiptap";
 import { type JSONContent } from "@tiptap/react";
 import { getNotesById } from "@/server/notes";
 

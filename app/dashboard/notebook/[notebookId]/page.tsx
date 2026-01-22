@@ -1,4 +1,4 @@
-import PageWrapper from "@/components/page-wrapper";
+import PageWrapper from "@/components/dashboard/page-wrapper";
 import { getNotebookById } from "@/server/notebook";
 
 interface NotebookPageProps {

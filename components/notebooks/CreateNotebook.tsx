@@ -20,7 +20,7 @@ import { insertNotebookSchema } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
 import { createNotebook } from "@/server/notebook";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -71,7 +71,9 @@ export default function CreateNotebookButton() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="cursor-pointer">Create Notebook</Button>
+        <Button className="cursor-pointer w-max text-sm">
+          <Plus size={4} /> Create Notebook
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
