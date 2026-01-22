@@ -7,13 +7,17 @@ export async function proxy(request: NextRequest) {
     headers: await headers(),
   });
 
-  if (!session) {
+  const pathname = request.nextUrl.pathname;
+
+  if (!session && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
+  } else if (session && pathname.startsWith("/auth")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/auth/:path"],
 };
