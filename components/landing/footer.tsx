@@ -1,153 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const links = [
-  {
-    group: "Product",
-    items: [
-      {
-        title: "Features",
-        href: "#features",
-      },
-      {
-        title: "Solution",
-        href: "#link",
-      },
-      {
-        title: "Customers",
-        href: "#link",
-      },
-      {
-        title: "Pricing",
-        href: "#pricing",
-      },
-      {
-        title: "Help",
-        href: "#link",
-      },
-      {
-        title: "About",
-        href: "#about",
-      },
-    ],
-  },
-  {
-    group: "Solution",
-    items: [
-      {
-        title: "Startup",
-        href: "#",
-      },
-      {
-        title: "Freelancers",
-        href: "#",
-      },
-      {
-        title: "Organizations",
-        href: "#",
-      },
-      {
-        title: "Students",
-        href: "#",
-      },
-      {
-        title: "Collaboration",
-        href: "#",
-      },
-      {
-        title: "Design",
-        href: "#",
-      },
-      {
-        title: "Management",
-        href: "#",
-      },
-    ],
-  },
-  {
-    group: "Company",
-    items: [
-      {
-        title: "About",
-        href: "#",
-      },
-      {
-        title: "Careers",
-        href: "#",
-      },
-      {
-        title: "Blog",
-        href: "#",
-      },
-      {
-        title: "Press",
-        href: "#",
-      },
-      {
-        title: "Contact",
-        href: "#",
-      },
-      {
-        title: "Help",
-        href: "#",
-      },
-    ],
-  },
-  {
-    group: "Legal",
-    items: [
-      {
-        title: "Licence",
-        href: "#",
-      },
-      {
-        title: "Privacy",
-        href: "#",
-      },
-      {
-        title: "Cookies",
-        href: "#",
-      },
-      {
-        title: "Security",
-        href: "#",
-      },
-    ],
-  },
-];
+const links = [];
 
 export default function FooterSection() {
   return (
-    <footer className="border-b bg-white pt-20 dark:bg-transparent">
+    <footer className="border-b pt-20 dark:bg-transparent">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="grid gap-12 md:grid-cols-5">
-          <div className="md:col-span-2">
-            <Link href="/" aria-label="go home" className="block size-fit">
-              <Image
-                src="/logo_512x512.png"
-                alt="logo"
-                width={50}
-                height={50}
-                className="rounded-lg dark:bg-white"
-              />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:col-span-3">
-            {links.map((link, index) => (
-              <div key={index} className="space-y-4 text-sm">
-                <span className="block font-medium">{link.group}</span>
-                {link.items.map((item, index) => (
-                  <Link
-                    key={index}
-                    href={item.href}
-                    className="text-muted-foreground hover:text-primary block duration-150">
-                    <span>{item.title}</span>
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <Link
+            href="/"
+            aria-label="go home"
+            className="block size-fit mx-auto md:mx-0">
+            <Image
+              src="/logo_512x512.png"
+              alt="logo"
+              width={50}
+              height={50}
+              className="rounded-lg dark:bg-white"
+            />
+          </Link>
+          <h1 className="mt-4 text-center text-muted-foreground max-w-lg">
+            betterNotes is a note-taking app that allows you to create and
+            manage your notes in one place.
+          </h1>
         </div>
         <div className="mt-12 flex flex-wrap items-end justify-between gap-6 border-t py-6">
           <span className="text-muted-foreground order-last block text-center text-sm md:order-first">

@@ -47,7 +47,7 @@ export default function HeroSection() {
                   preset="fade-in-blur"
                   speedSegment={0.3}
                   as="h1"
-                  className="mt-8 max-w-2xl text-balance text-5xl font-bold md:text-6xl lg:mt-16 tracking-tight">
+                  className="mt-8 max-w-2xl text-balance text-4xl font-bold md:text-6xl lg:mt-16 tracking-tight">
                   Better Notes. Clear Thinking.
                 </TextEffect>
                 <TextEffect
@@ -81,7 +81,7 @@ export default function HeroSection() {
                       asChild
                       size="lg"
                       className="rounded-xl px-5 text-base">
-                      <Link href="/auth/signup">
+                      <Link href="/dashboard">
                         <span className="text-nowrap">Create Now</span>
                       </Link>
                     </Button>
@@ -104,15 +104,15 @@ export default function HeroSection() {
               <div className="mask-b-from-55% relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20">
                 <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-5xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
                   <Image
-                    className="bg-background aspect-15/8 relative hidden rounded-2xl dark:hidden"
-                    src="/placeholder-1.png"
+                    className="bg-background aspect-15/8 relative block rounded-2xl dark:hidden"
+                    src="/hero-light.png"
                     alt="app screen"
                     width="2700"
                     height="1440"
                   />
                   <Image
-                    className="z-2 border-border/25 aspect-15/8 relative rounded-2xl border dark:block"
-                    src="/placeholder-2.jpg"
+                    className="z-2 border-border/25 aspect-15/8 relative hidden rounded-2xl border dark:block"
+                    src="/hero-dark.png"
                     alt="app screen"
                     width="2700"
                     height="1440"

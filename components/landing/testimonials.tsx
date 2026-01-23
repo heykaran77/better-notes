@@ -92,7 +92,7 @@ export default function Testimonials() {
               </blockquote>
             </CardContent>
           </Card>
-          <Card className="bg-background">
+          <Card className="bg-background md:col-span-2 lg:col-span-1">
             <CardContent className="h-full pt-6">
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                 <p>
@@ -122,7 +122,7 @@ export default function Testimonials() {
               </blockquote>
             </CardContent>
           </Card>
-          <Card className="bg-background card variant-mixed">
+          <Card className="bg-background card variant-mixed md:col-span-2 lg:col-span-1">
             <CardContent className="h-full pt-6">
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                 <p>
