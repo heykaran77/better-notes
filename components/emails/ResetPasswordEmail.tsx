@@ -46,8 +46,8 @@ const ResetPasswordEmail = ({
               </Button>
 
               <Text className="text-[14px] text-gray-500 mt-[32px] mb-0 leading-[20px]">
-                This reset link will expire in 1 hour. If you didn't request a
-                password reset, you can safely ignore this email.
+                This reset link will expire in 1 hour. If you didn&apos;t
+                request a password reset, you can safely ignore this email.
               </Text>
             </Section>
 

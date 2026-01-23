@@ -12,7 +12,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const auth = betterAuth({
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
-      const { data, error } = await resend.emails.send({
+      await resend.emails.send({
         from: "BetterNotes <onboarding@resend.dev>",
         to: [user.email],
         subject: "Verify your email address",
@@ -28,7 +28,7 @@ export const auth = betterAuth({
     requireEmailVerification: true, // Email Should be verified to login
     enabled: true,
     sendResetPassword: async ({ user, url }) => {
-      const { data, error } = await resend.emails.send({
+      await resend.emails.send({
         from: "BetterNotes <onboarding@resend.dev>",
         to: [user.email],
         subject: "Reset your password",

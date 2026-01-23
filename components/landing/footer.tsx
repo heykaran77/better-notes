@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const links = [];
-
 export default function FooterSection() {
   return (
     <footer className="border-b pt-20 dark:bg-transparent">

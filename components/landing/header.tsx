@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { useScroll } from "motion/react";
 import { ModeToggle } from "@/components/common/mode-toggle";
 import Image from "next/image";
 
@@ -19,16 +18,6 @@ const menuItems = [
 
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
-
-  const { scrollYProgress } = useScroll();
-
-  React.useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      setScrolled(latest > 0.05);
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
 
   return (
     <header>
@@ -36,7 +25,7 @@ export const HeroHeader = () => {
         data-state={menuState && "active"}
         className={cn(
           "fixed z-20 w-full border-b transition-colors duration-150",
-          "bg-background/50 backdrop-blur-3xl"
+          "bg-background/50 backdrop-blur-3xl",
         )}>
         <div className="mx-auto max-w-5xl px-6 transition-all duration-300">
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">

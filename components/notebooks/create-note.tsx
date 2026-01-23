@@ -16,9 +16,8 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { insertNotebookSchema, insertNoteSchema } from "@/db/schema";
+import { insertNoteSchema } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
-import { createNotebook } from "@/server/notebook";
 import { createNote } from "@/server/notes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus } from "lucide-react";

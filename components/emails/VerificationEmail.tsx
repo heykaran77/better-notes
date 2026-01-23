@@ -46,8 +46,8 @@ const VerificationEmail = ({
               </Button>
 
               <Text className="text-[14px] text-gray-500 mt-[32px] mb-0 leading-[20px]">
-                This verification link will expire in 24 hours. If you didn't
-                create an account, you can safely ignore this email.
+                This verification link will expire in 24 hours. If you
+                didn&apos;t create an account, you can safely ignore this email.
               </Text>
             </Section>
 

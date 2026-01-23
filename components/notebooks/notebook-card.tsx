@@ -46,10 +46,12 @@ export default function NoteBookCard({ notebook }: NoteBookCardProps) {
           setIsOpen(false);
         }
       } catch (error) {
+        console.log(error);
         toast.error("Failed to delete notebook");
       }
     });
   };
+
   return (
     <Card>
       <CardHeader>
