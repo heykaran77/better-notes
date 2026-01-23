@@ -5,26 +5,34 @@ import Image from "next/image";
 import { TextEffect } from "@/components/ui/text-effect";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { HeroHeader } from "./header";
+import { Variants } from "motion/react";
 
-const transitionVariants = {
-  item: {
-    hidden: {
-      opacity: 0,
-      filter: "blur(12px)",
-      y: 12,
-    },
-    visible: {
-      opacity: 1,
-      filter: "blur(0px)",
-      y: 0,
-      transition: {
-        type: "spring",
-        bounce: 0.3,
-        duration: 1.5,
-      },
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    filter: "blur(12px)",
+    y: 12,
+  },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+    transition: {
+      type: "spring",
+      bounce: 0.3,
+      duration: 1.5,
     },
   },
-} as const;
+};
+
+const containerVariants: Variants = {
+  visible: {
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.75,
+    },
+  },
+};
 
 export default function HeroSection() {
   return (
@@ -63,15 +71,8 @@ export default function HeroSection() {
 
                 <AnimatedGroup
                   variants={{
-                    container: {
-                      visible: {
-                        transition: {
-                          staggerChildren: 0.05,
-                          delayChildren: 0.75,
-                        },
-                      },
-                    },
-                    ...transitionVariants,
+                    container: containerVariants,
+                    item: itemVariants,
                   }}
                   className="mt-12 flex items-center gap-2">
                   <div
@@ -91,15 +92,8 @@ export default function HeroSection() {
             </div>
             <AnimatedGroup
               variants={{
-                container: {
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.05,
-                      delayChildren: 0.75,
-                    },
-                  },
-                },
-                ...transitionVariants,
+                container: containerVariants,
+                item: itemVariants,
               }}>
               <div className="mask-b-from-55% relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20">
                 <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-5xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
