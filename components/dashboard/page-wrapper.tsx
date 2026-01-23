@@ -45,8 +45,8 @@ export default function PageWrapper({
                 </KbdGroup>
               </TooltipContent>
             </Tooltip>
-            <Breadcrumb>
-              <BreadcrumbList>
+            <Breadcrumb className="hidden md:block">
+              <BreadcrumbList className="flex items-center gap-2">
                 {breadCrumbs.map((breadcrumb, index) => (
                   <Fragment key={index}>
                     <BreadcrumbItem key={index}>

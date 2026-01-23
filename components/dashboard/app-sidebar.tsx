@@ -2,7 +2,6 @@ import * as React from "react";
 import { ChevronRight } from "lucide-react";
 
 import { SearchForm } from "@/components/dashboard/search-form";
-import { VersionSwitcher } from "@/components/dashboard/version-switcher";
 import {
   Collapsible,
   CollapsibleContent,
@@ -21,13 +20,13 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { getNotebooks } from "@/server/notebook";
+import Image from "next/image";
 
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const noteBooks = await getNotebooks();
   const data = {
-    versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
     navMain: [
       ...(noteBooks?.notebooks?.map((notebook) => ({
         title: notebook.name,
@@ -42,10 +41,18 @@ export async function AppSidebar({
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        />
+        <div className="flex items-center gap-2">
+          <Image
+            src={"/logo_512x512.png"}
+            alt="betterNotes"
+            width={44}
+            height={44}
+            className="rounded-lg dark:bg-white"
+          />
+          <h3 className="text-lg text-neutral-200 font-semibold tracking-tighter">
+            betterNotes
+          </h3>
+        </div>
         <SearchForm />
       </SidebarHeader>
       <SidebarContent className="gap-0">

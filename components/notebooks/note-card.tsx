@@ -1,5 +1,16 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +24,7 @@ import { deleteNote } from "@/server/notes";
 import { Loader2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 interface NoteCardProps {
@@ -22,9 +33,7 @@ interface NoteCardProps {
 export default function NoteCard({ note }: NoteCardProps) {
   const [deletePending, startDeleteTransition] = useTransition();
   const router = useRouter();
-
-  
-
+  const [isOpen, setIsOpen] = useState(false);
   const handleDelete = () => {
     try {
       startDeleteTransition(async () => {
@@ -53,24 +62,59 @@ export default function NoteCard({ note }: NoteCardProps) {
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className="flex flex-wrap items-center gap-2">
-        <Button className="cursor-pointer" variant={"default"} asChild>
+        <Button
+          className="cursor-pointer"
+          disabled={deletePending}
+          variant={"default"}
+          asChild>
           <Link href={`/dashboard/note/${note.id}`}>View</Link>
         </Button>
-        <Button
-          variant={"destructive"}
-          className="cursor-pointer"
-          onClick={handleDelete}
-          disabled={deletePending}>
-          {deletePending ? (
-            <>
-              <Loader2 size={4} className="animate-spin" /> deleting
-            </>
-          ) : (
-            <>
-              <Trash2 size={4} /> delete
-            </>
-          )}
-        </Button>
+        <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant={"destructive"}
+              className="cursor-pointer"
+              disabled={deletePending}>
+              {deletePending ? (
+                <>
+                  <Loader2 size={4} className="animate-spin" /> Deleteing...
+                </>
+              ) : (
+                <>
+                  <Trash2 size={4} /> Delete
+                </>
+              )}
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                note from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="cursor-pointer">
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction
+                className="cursor-pointer"
+                onClick={handleDelete}
+                disabled={deletePending}>
+                {deletePending ? (
+                  <>
+                    <Loader2 size={4} className="animate-spin" /> Confirm
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={4} /> Confirm
+                  </>
+                )}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </CardFooter>
     </Card>
   );
