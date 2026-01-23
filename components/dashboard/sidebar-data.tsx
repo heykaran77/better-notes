@@ -10,11 +10,14 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
 } from "@/components/ui/sidebar";
 import { ChevronRight, FileText } from "lucide-react";
 import { useQueryState } from "nuqs";
+import { Suspense } from "react";
 
 interface SidebarDataProps {
   data: {

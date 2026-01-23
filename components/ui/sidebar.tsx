@@ -79,7 +79,7 @@ function SidebarProvider({
       if (setOpenProp) {
         setOpenProp(openState)
       } else {
-        _setOpen(openState)
+        _setOpen(openState);
       }
 
       // This sets the cookie to keep the sidebar state.

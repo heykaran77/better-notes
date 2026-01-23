@@ -1,10 +1,10 @@
 import PageWrapper from "@/components/dashboard/page-wrapper";
 import CreateNote from "@/components/notebooks/create-note";
 import NoteCard from "@/components/notebooks/note-card";
-import { Button } from "@/components/ui/button";
+import { NoteCardsSkeleton } from "@/components/notebooks/note-card-skeleton";
 import { getNotebookById } from "@/server/notebook";
-import { Plus } from "lucide-react";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface NotebookPageProps {
   notebookId: string;
@@ -38,17 +38,19 @@ export default async function NotebookPage({
           href: `/dashboard/notebook/${notebook.id}`,
         },
       ]}>
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight">
-          {notebook.name}
-        </h1>
-        <CreateNote notesbookId={notebook.id} />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {notebook.notes.map((note) => (
-          <NoteCard key={note.id} note={note} />
-        ))}
-      </div>
+      <Suspense fallback={<NoteCardsSkeleton />}>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight">
+            {notebook.name}
+          </h1>
+          <CreateNote notesbookId={notebook.id} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {notebook.notes.map((note) => (
+            <NoteCard key={note.id} note={note} />
+          ))}
+        </div>
+      </Suspense>
     </PageWrapper>
   );
 }
