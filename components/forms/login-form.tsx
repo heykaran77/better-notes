@@ -106,7 +106,7 @@ export function LoginForm() {
             </Field>
           )}
         />
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending} className="cursor-pointer">
           {isPending ? (
             <>
               <Loader2 className="size-4 animate-spin" />

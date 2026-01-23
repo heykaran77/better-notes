@@ -4,6 +4,7 @@ import NoteCard from "@/components/notebooks/note-card";
 import { Button } from "@/components/ui/button";
 import { getNotebookById } from "@/server/notebook";
 import { Plus } from "lucide-react";
+import { notFound } from "next/navigation";
 
 interface NotebookPageProps {
   notebookId: string;
@@ -22,7 +23,7 @@ export default async function NotebookPage({
   }
 
   if (!notebook) {
-    return <div>Notebook not found</div>;
+    return notFound();
   }
 
   return (

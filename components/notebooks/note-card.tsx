@@ -67,7 +67,11 @@ export default function NoteCard({ note }: NoteCardProps) {
           disabled={deletePending}
           variant={"default"}
           asChild>
-          <Link href={`/dashboard/note/${note.id}`}>View</Link>
+          <Link
+            href={`/dashboard/note/${note.id}`}
+            className={`${deletePending ? "opacity-50 pointer-events-none" : "cursor-pointer"}`}>
+            View
+          </Link>
         </Button>
         <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
           <AlertDialogTrigger asChild>

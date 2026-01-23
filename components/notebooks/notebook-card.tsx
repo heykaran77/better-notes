@@ -62,7 +62,11 @@ export default function NoteBookCard({ notebook }: NoteBookCardProps) {
           variant={"default"}
           disabled={deletePending}
           asChild>
-          <Link href={`/dashboard/notebook/${notebook.id}`}>View</Link>
+          <Link
+            href={`/dashboard/notebook/${notebook.id}`}
+            className={`${deletePending ? "opacity-50 pointer-events-none" : "cursor-pointer"}`}>
+            View
+          </Link>
         </Button>
         <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
           <AlertDialogTrigger asChild>

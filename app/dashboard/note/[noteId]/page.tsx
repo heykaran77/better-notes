@@ -39,7 +39,9 @@ export default async function NotePage({
           href: `/dashboard/note/${note.id}`,
         },
       ]}>
-      {note.title}
+      <h1 className="text-2xl md:text-3xl lg:text-4xl tracking-tighter font-bold">
+        {note.title}
+      </h1>
       <Tiptap content={note?.content as JSONContent[]} noteId={noteId} />
     </PageWrapper>
   );

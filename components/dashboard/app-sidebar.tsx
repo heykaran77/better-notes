@@ -11,6 +11,7 @@ import {
 import { getNotebooks } from "@/server/notebook";
 import Image from "next/image";
 import SidebarData from "@/components/dashboard/sidebar-data";
+import Link from "next/link";
 
 export async function AppSidebar({
   ...props
@@ -31,7 +32,7 @@ export async function AppSidebar({
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src={"/logo_512x512.png"}
             alt="betterNotes"
@@ -39,10 +40,10 @@ export async function AppSidebar({
             height={32}
             className="rounded-lg dark:bg-white"
           />
-          <h3 className="text-lg text-neutral-200 font-semibold tracking-tighter">
+          <h3 className="text-lg text-neutral-800 font-bold tracking-tighter dark:text-neutral-200">
             betterNotes
           </h3>
-        </div>
+        </Link>
         <SearchForm />
       </SidebarHeader>
       <SidebarContent className="gap-0">
